@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/registerScreen1.dart';
+import 'package:projectsystem/screens/Welcome/Register/registerScreen1.dart';
 
-import 'loginScreen.dart';
+import '../Login/loginScreen.dart';
 
 class registerScreen2 extends StatelessWidget {
   @override

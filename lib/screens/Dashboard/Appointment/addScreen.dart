@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/appointmentScreen.dart';
-
-import 'dashboardScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Appointment/appointmentScreen.dart';
+import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
 
 class addScreen extends StatelessWidget {
   @override

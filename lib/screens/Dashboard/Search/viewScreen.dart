@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/dashboardScreen.dart';
+import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
 
 class viewScreen extends StatelessWidget {
   @override

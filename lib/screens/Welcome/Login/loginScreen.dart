@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/registerScreen2.dart';
-import 'package:projectsystem/screens/welcomeScreen.dart';
+import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
+import 'package:projectsystem/screens/Welcome/welcomeScreen.dart';
 
-class registerScreen1 extends StatelessWidget {
+class loginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class registerScreen1 extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Register",
+                  "Login",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -88,7 +88,7 @@ class registerScreen1 extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Color(0xff000000), width: 1),
                       ),
-                      hintText: "Enter email",
+                      hintText: "Email",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -129,7 +129,7 @@ class registerScreen1 extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Color(0xff000000), width: 1),
                       ),
-                      hintText: "Enter Password",
+                      hintText: "Password",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -146,7 +146,7 @@ class registerScreen1 extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => registerScreen2(),
+                        builder: (context) => dashboardScreen(),
                       ));
                     },
                     color: Color(0xff000000),
@@ -156,7 +156,7 @@ class registerScreen1 extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(16),
                     child: Text(
-                      "Next",
+                      "Login",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/profileScreen.dart';
-import 'package:projectsystem/screens/viewScreen.dart';
-
-import 'addScreen.dart';
-import 'dashboardScreen.dart';
-import 'notifScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Appointment/addScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Notification/notifScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Profile/profileScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Search/viewScreen.dart';
+import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
 
 class searchScreen extends StatelessWidget {
   @override

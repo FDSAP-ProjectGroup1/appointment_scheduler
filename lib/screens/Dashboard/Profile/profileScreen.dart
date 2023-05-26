@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/addScreen.dart';
-import 'package:projectsystem/screens/searchScreen.dart';
-import 'package:projectsystem/screens/welcomeScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Appointment/addScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Appointment/appointmentScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Notification/notifScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Profile/aboutScreen.dart';
+import 'package:projectsystem/screens/Dashboard/Search/searchScreen.dart';
+import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
+import 'package:projectsystem/screens/Welcome/welcomeScreen.dart';
 
-import 'appointmentScreen.dart';
-import 'dashboardScreen.dart';
 import 'myprofileScreen.dart';
-import 'notifScreen.dart';
 
 class profileScreen extends StatelessWidget {
   @override
@@ -491,7 +492,11 @@ class profileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => aboutScreen(),
+                        ));
+                      },
                     ),
                     MaterialButton(
                       onPressed: () {
