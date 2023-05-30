@@ -2,12 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
 import 'package:projectsystem/screens/Welcome/welcomeScreen.dart';
 
-class loginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  bool validateCredentials(String email, String password) {
+    // Validate the email and password here.
+    // You can replace this with your own logic.
+    return email == 'admin@mail.com' && password == 'password123';
+  }
+
+  void showInvalidCredentialsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Invalid Credentials"),
+          content: Text("The email and password you entered are invalid."),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff3d9970),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +91,7 @@ class loginScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   TextField(
-                    controller: TextEditingController(),
+                    controller: emailController,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     maxLines: 1,
@@ -103,7 +132,7 @@ class loginScreen extends StatelessWidget {
                     ),
                   ),
                   TextField(
-                    controller: TextEditingController(),
+                    controller: passwordController,
                     obscureText: true,
                     textAlign: TextAlign.start,
                     maxLines: 1,
@@ -145,9 +174,15 @@ class loginScreen extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => dashboardScreen(),
-                      ));
+                      final email = emailController.text.trim();
+                      final password = passwordController.text.trim();
+                      if (validateCredentials(email, password)) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => dashboardScreen(),
+                        ));
+                      } else {
+                        showInvalidCredentialsDialog(context);
+                      }
                     },
                     color: Color(0xff000000),
                     elevation: 0,

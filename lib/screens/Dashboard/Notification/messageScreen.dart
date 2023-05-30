@@ -135,7 +135,7 @@ class messageScreen extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Text(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                    "It is my pleasure to greet you on this wonderful day. I hope you are doing well and staying safe. I wanted to take a moment to thank you for your ongoing support and friendship. It has been a great pleasure getting to know you over the years and I look forward to many more years of friendship ahead.",
                                     textAlign: TextAlign.start,
                                     overflow: TextOverflow.clip,
                                     style: TextStyle(

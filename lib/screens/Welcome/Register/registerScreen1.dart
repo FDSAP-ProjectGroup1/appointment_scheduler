@@ -146,7 +146,7 @@ class registerScreen1 extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => registerScreen2(),
+                        builder: (context) => RegisterScreen2(),
                       ));
                     },
                     color: Color(0xff000000),

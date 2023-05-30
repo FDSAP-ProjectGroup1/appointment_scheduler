@@ -258,7 +258,7 @@ class addScreen extends StatelessWidget {
                 margin: EdgeInsets.zero,
                 padding: EdgeInsets.zero,
                 width: 250,
-                height: 100,
+                height: 60,
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   shape: BoxShape.rectangle,
@@ -326,7 +326,6 @@ class addScreen extends StatelessWidget {
                   controller: TextEditingController(),
                   obscureText: false,
                   textAlign: TextAlign.start,
-                  maxLines: 1,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
@@ -334,21 +333,12 @@ class addScreen extends StatelessWidget {
                     color: Color(0xff000000),
                   ),
                   decoration: InputDecoration(
-                    disabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    hintText: "Input Text",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0x00000000),
-                    isDense: false,
-                    contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+                    hintText: 'Enter Message',
+                    border: InputBorder.none,
                   ),
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 5,
                 ),
               ),
               Padding(

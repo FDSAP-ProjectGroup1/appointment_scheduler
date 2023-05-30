@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectsystem/screens/Welcome/Login/loginScreen.dart';
-import 'package:projectsystem/screens/Welcome/Register/registerScreen1.dart';
+import 'package:projectsystem/screens/Welcome/Register/Register.dart';
 
 class welcomeScreen extends StatelessWidget {
   @override
@@ -51,7 +51,7 @@ class welcomeScreen extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => loginScreen(),
+                        builder: (context) => LoginScreen(),
                       ));
                     },
                     color: Color(0xffffffff),
@@ -76,7 +76,7 @@ class welcomeScreen extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => registerScreen1(),
+                        builder: (context) => RegistrationForm(),
                       ));
                     },
                     color: Color(0xff000000),

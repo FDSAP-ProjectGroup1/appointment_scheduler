@@ -83,8 +83,8 @@ class editprofileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child:
-                        Image.asset("assets/images/5856.jpg", fit: BoxFit.cover),
+                        child: Image.asset("assets/images/5856.jpg",
+                            fit: BoxFit.cover),
                       ),
                     ),
                     Container(
@@ -178,6 +178,7 @@ class editprofileScreen extends StatelessWidget {
                                   borderSide: BorderSide(
                                       color: Color(0xff000000), width: 1),
                                 ),
+                                prefixIcon: Icon(Icons.note_alt_sharp),
                                 hintText: "Enter Name:",
                                 hintStyle: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -229,6 +230,7 @@ class editprofileScreen extends StatelessWidget {
                                   borderSide: BorderSide(
                                       color: Color(0xff000000), width: 1),
                                 ),
+                                prefixIcon: Icon(Icons.mail),
                                 hintText: "Enter Email:",
                                 hintStyle: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -280,6 +282,7 @@ class editprofileScreen extends StatelessWidget {
                                   borderSide: BorderSide(
                                       color: Color(0xff000000), width: 1),
                                 ),
+                                prefixIcon: Icon(Icons.password),
                                 hintText: "Enter Password:",
                                 hintStyle: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -331,6 +334,7 @@ class editprofileScreen extends StatelessWidget {
                                   borderSide: BorderSide(
                                       color: Color(0xff000000), width: 1),
                                 ),
+                                prefixIcon: Icon(Icons.contact_phone),
                                 hintText: "Enter Contact Number:",
                                 hintStyle: TextStyle(
                                   fontWeight: FontWeight.w400,

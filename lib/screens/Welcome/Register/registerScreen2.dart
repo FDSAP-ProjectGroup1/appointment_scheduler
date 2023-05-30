@@ -3,7 +3,36 @@ import 'package:projectsystem/screens/Welcome/Register/registerScreen1.dart';
 
 import '../Login/loginScreen.dart';
 
-class registerScreen2 extends StatelessWidget {
+class RegisterScreen2 extends StatelessWidget {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController contactNumberController = TextEditingController();
+
+  bool validateFields(String username, String contactNumber) {
+    // Validate the fields here.
+    // You can replace this with your own logic.
+    return username.isNotEmpty && contactNumber.isNotEmpty;
+  }
+
+  void showEmptyFieldsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Empty Fields"),
+          content: Text("Please fill in all the required fields."),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +92,7 @@ class registerScreen2 extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   TextField(
-                    controller: TextEditingController(),
+                    controller: usernameController,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     maxLines: 1,
@@ -104,7 +133,7 @@ class registerScreen2 extends StatelessWidget {
                     ),
                   ),
                   TextField(
-                    controller: TextEditingController(),
+                    controller: contactNumberController,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     maxLines: 1,
@@ -146,9 +175,15 @@ class registerScreen2 extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => loginScreen(),
-                      ));
+                      final username = usernameController.text.trim();
+                      final contactNumber = contactNumberController.text.trim();
+                      if (validateFields(username, contactNumber)) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                      } else {
+                        showEmptyFieldsDialog(context);
+                      }
                     },
                     color: Color(0xff000000),
                     elevation: 0,
