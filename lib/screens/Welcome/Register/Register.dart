@@ -130,14 +130,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registration Form'),
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF1e5b24),
       ),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.green.shade400,
-              Colors.lightGreen.shade400,
+              Color(0xFF097915),
+              Color(0xFFe2ffe5),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

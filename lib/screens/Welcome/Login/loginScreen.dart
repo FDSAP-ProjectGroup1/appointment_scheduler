@@ -7,7 +7,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
 
   bool validateCredentials(String email, String password) {
-    // Validate the email and password here.
+    // Perform login authentication here.
     // You can replace this with your own logic.
     return email == 'admin@mail.com' && password == 'password123';
   }
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff3d9970),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
