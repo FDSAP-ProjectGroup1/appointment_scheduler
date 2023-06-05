@@ -1,35 +1,96 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
-import 'package:projectsystem/screens/Welcome/welcomeScreen.dart';
+import 'package:projectsystem/screens/adminFeatures/adminNLscreen/adminNLscreen.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
-  bool validateCredentials(String email, String password) {
-    // Perform login authentication here.
-    // You can replace this with your own logic.
-    return email == 'admin@mail.com' && password == 'password123';
+class _LoginPageState extends State<LoginPage> {
+  final formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String errorMessage = '';
+
+  Future<void> login(BuildContext context) async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email == "admin@mail.com" && password == "adminpass123") {
+      // Navigate to admin dashboard
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => adminNLscreen()),
+          (route) => false);
+    } else if (email == "user@mail.com" && password == "password") {
+      // Navigate to admin dashboard
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          (route) => false);
+    } else {
+      try {
+        final response = await http.post(
+          Uri.parse('http://127.0.0.1:8080/api/login'),
+          body: jsonEncode({'email': email, 'password': password}),
+          headers: {'Content-Type': 'application/json'},
+        );
+
+        if (response.statusCode == 200) {
+          // Navigate to regular user home screen
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+              (route) => false);
+        } else {
+          final responseBody = jsonDecode(response.body);
+          setState(() {
+            errorMessage = responseBody['message'];
+          });
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Login Failed'),
+                content: Text(errorMessage),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text('An error occurred. Please try again later.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
   }
 
-  void showInvalidCredentialsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Invalid Credentials"),
-          content: Text("The email and password you entered are invalid."),
-          actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,9 +113,7 @@ class LoginScreen extends StatelessWidget {
                   size: 25,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => welcomeScreen(),
-                  ));
+                  Navigator.of(context).pop();
                 },
               ),
             ),
@@ -173,17 +232,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {
-                      final email = emailController.text.trim();
-                      final password = passwordController.text.trim();
-                      if (validateCredentials(email, password)) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => dashboardScreen(),
-                        ));
-                      } else {
-                        showInvalidCredentialsDialog(context);
-                      }
-                    },
+                    onPressed: () => login(context),
                     color: Color(0xff000000),
                     elevation: 0,
                     shape: RoundedRectangleBorder(

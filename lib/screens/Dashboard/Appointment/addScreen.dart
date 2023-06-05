@@ -1,8 +1,45 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/Dashboard/Appointment/appointmentScreen.dart';
 import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
+import 'package:projectsystem/screens/adminFeatures/adminNLscreen/Admin.dart';
 
-class addScreen extends StatelessWidget {
+class addScreen extends StatefulWidget {
+  @override
+  _addScreenState createState() => _addScreenState();
+}
+
+class _addScreenState extends State<addScreen> {
+  late DateTime selectedDate;
+  late String selectedTime;
+  late String appointmentTitle;
+  late String appointmentReason;
+
+  List<Appointment> appointments = [];
+
+  void submitAppointment(BuildContext context) {
+    // Retrieve the values from the text fields
+    // and create an Appointment object
+    Appointment newAppointment = Appointment(
+      date: selectedDate,
+      time: selectedTime,
+      title: appointmentTitle,
+      reason: appointmentReason,
+    );
+
+    // Add the new appointment to the list
+    appointments.add(newAppointment);
+
+    // Navigate to the admin screen for approval or rejection
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => AdminScreen(
+        appointments: appointments,
+        onAppointmentAction: (appointment) {
+          // Handle approval or rejection of the appointment
+        },
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +77,7 @@ class addScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => dashboardScreen(),
+                            builder: (context) => DashboardScreen(),
                           ));
                         },
                       ),
@@ -87,18 +124,20 @@ class addScreen extends StatelessWidget {
                 margin: EdgeInsets.all(0),
                 padding: EdgeInsets.zero,
                 width: 250,
-                height: 300,
+                height: 250,
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Color(0xff000000), width: 1),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                child: CalendarDatePicker(
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(DateTime.now().year),
-                  lastDate: DateTime(2050),
-                  onDateChanged: (date) {},
+                child: CupertinoDatePicker(
+                  initialDateTime: DateTime.now(),
+                  mode: CupertinoDatePickerMode.date,
+                  onDateTimeChanged: (DateTime dateTime) {
+                    setState(() {
+                      selectedDate = dateTime;
+                    });
+                  },
                 ),
               ),
               Padding(
@@ -106,7 +145,7 @@ class addScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Set Time",
+                    "Choose Time",
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
@@ -119,254 +158,98 @@ class addScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.zero,
+                margin: EdgeInsets.all(0),
+                padding: EdgeInsets.zero,
+                width: 250,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Color(0xffffffff),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: CupertinoPicker(
+                  itemExtent: 32.0,
+                  onSelectedItemChanged: (int index) {
+                    setState(() {
+                      selectedTime = getTimeFromIndex(index);
+                    });
+                  },
+                  children: getPickerTimeItems(),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Appointment Title",
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 20,
+                      color: Color(0xff000000),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(0),
+                padding: EdgeInsets.zero,
+                width: 250,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xffffffff),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      appointmentTitle = value;
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Appointment Reason",
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 20,
+                      color: Color(0xff000000),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(0),
                 padding: EdgeInsets.zero,
                 width: 250,
                 height: 100,
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Color(0xff000000), width: 1),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.zero,
-                      padding: EdgeInsets.zero,
-                      width: 50,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Color(0x1f000000),
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Color(0x4d9d9d9d), width: 1),
-                      ),
-                      child: TextField(
-                        controller: TextEditingController(),
-                        obscureText: false,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 20,
-                          color: Color(0xff000000),
-                        ),
-                        decoration: InputDecoration(
-                          disabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          filled: true,
-                          fillColor: Color(0x00f2f2f3),
-                          isDense: false,
-                          contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                      child: Text(
-                        "Hr",
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14,
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.zero,
-                      padding: EdgeInsets.zero,
-                      width: 50,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Color(0x1f000000),
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Color(0x4d9d9d9d), width: 1),
-                      ),
-                      child: TextField(
-                        controller: TextEditingController(),
-                        obscureText: false,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 20,
-                          color: Color(0xff000000),
-                        ),
-                        decoration: InputDecoration(
-                          disabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          hintStyle: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14,
-                            color: Color(0xff000000),
-                          ),
-                          filled: true,
-                          fillColor: Color(0x00f2f2f3),
-                          isDense: false,
-                          contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
-                      child: Text(
-                        "Min",
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 14,
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Title Of Appointment",
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 20,
-                      color: Color(0xff000000),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-                width: 250,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Color(0xff000000), width: 1),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    hintText: "Input Text",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0x00000000),
-                    isDense: false,
-                    contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Reason For Appointment",
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 20,
-                      color: Color(0xff000000),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-                width: 250,
-                height: 300,
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Color(0xff000000), width: 1),
-                ),
-                child: TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Enter Message',
-                    border: InputBorder.none,
-                  ),
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 5,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 30),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => appointmentScreen(),
-                    ));
+                  onChanged: (value) {
+                    setState(() {
+                      appointmentReason = value;
+                    });
                   },
-                  color: Color(0xff000000),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    "SET APPOINTMENT",
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                    ),
-                  ),
-                  textColor: Color(0xffffffff),
-                  height: 50,
-                  minWidth: MediaQuery.of(context).size.width,
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () => submitAppointment(context),
+                child: Text('Submit'),
               ),
             ],
           ),
@@ -374,4 +257,30 @@ class addScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> getPickerTimeItems() {
+    List<Widget> pickerItems = [];
+    for (int i = 0; i < 24; i++) {
+      pickerItems.add(Text(getTimeFromIndex(i)));
+    }
+    return pickerItems;
+  }
+
+  String getTimeFromIndex(int index) {
+    return '${index.toString().padLeft(2, '0')}:00';
+  }
+}
+
+class Appointment {
+  final DateTime date;
+  final String time;
+  final String title;
+  final String reason;
+
+  Appointment({
+    required this.date,
+    required this.time,
+    required this.title,
+    required this.reason,
+  });
 }

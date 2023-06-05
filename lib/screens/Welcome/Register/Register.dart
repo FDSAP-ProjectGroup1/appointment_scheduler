@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:projectsystem/screens/Welcome/Login/loginScreen.dart';
 
@@ -26,9 +27,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
             actions: [
               TextButton(
                 onPressed: () {
+                  setState(() {
+                    _isTermsChecked = true;
+                  });
                   Navigator.pop(context);
                 },
-                child: Text('OK'),
+                child: Text('Agree'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
               ),
             ],
           ),
@@ -79,7 +89,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => LoginPage(),
                   ),
                 );
               },
@@ -123,6 +133,35 @@ class _RegistrationFormState extends State<RegistrationForm> {
     final regex =
         RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$');
     return regex.hasMatch(value);
+  }
+
+  void displayTermsAndConditions() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Terms and Conditions'),
+          content: Text('Here are the terms and conditions...'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _isTermsChecked = true;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text('Agree'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -231,6 +270,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           style: TextStyle(
                             color: _isTermsChecked ? Colors.black : Colors.red,
                           ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = displayTermsAndConditions,
                         ),
                       ],
                     ),

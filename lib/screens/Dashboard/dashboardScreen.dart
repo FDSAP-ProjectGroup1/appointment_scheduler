@@ -6,7 +6,7 @@ import 'package:projectsystem/screens/Dashboard/Search/viewScreen.dart';
 
 import 'Profile/profileScreen.dart';
 
-class dashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +70,7 @@ class dashboardScreen extends StatelessWidget {
                             ),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => dashboardScreen(),
+                                builder: (context) => DashboardScreen(),
                               ));
                             },
                           ),

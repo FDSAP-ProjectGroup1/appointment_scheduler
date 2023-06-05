@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:projectsystem/screens/Dashboard/Appointment/addScreen.dart';
-import 'package:projectsystem/screens/Dashboard/Profile/profileScreen.dart';
-import 'package:projectsystem/screens/Dashboard/Search/searchScreen.dart';
-import 'package:projectsystem/screens/Dashboard/dashboardScreen.dart';
+import 'package:projectsystem/screens/Welcome/Login/loginScreen.dart';
+import 'package:projectsystem/screens/adminFeatures/adminALscreen/adminALscreen.dart';
+import 'package:projectsystem/screens/adminFeatures/adminDBscreen/adminDBscreen.dart';
+import 'package:projectsystem/screens/adminFeatures/adminNLscreen/adminNMscreen.dart';
 
-import 'messageScreen.dart';
-
-class notifScreen extends StatelessWidget {
+class adminNLscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +20,7 @@ class notifScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 120,
             decoration: BoxDecoration(
-              color: Color(0xff3e9a71),
+              color: Color(0xffffffff),
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(25.0),
@@ -42,12 +40,12 @@ class notifScreen extends StatelessWidget {
                       image:
                           AssetImage("assets/images/logo (black)clear BG.png"),
                       height: 30,
-                      width: 180,
+                      width: 170,
                       fit: BoxFit.scaleDown,
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -63,13 +61,13 @@ class notifScreen extends StatelessWidget {
                         ),
                         child: IconButton(
                           icon: const Icon(
-                            Icons.home,
+                            Icons.person,
                             color: Color(0xff000000),
                             size: 24,
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DashboardScreen(),
+                              builder: (context) => adminDBscreen(),
                             ));
                           },
                         ),
@@ -86,36 +84,13 @@ class notifScreen extends StatelessWidget {
                         ),
                         child: IconButton(
                           icon: const Icon(
-                            Icons.search,
+                            Icons.list,
                             color: Color(0xff000000),
                             size: 24,
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => searchScreen(),
-                            ));
-                          },
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(0),
-                        padding: EdgeInsets.all(0),
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0x00000000),
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.add,
-                            color: Color(0xff000000),
-                            size: 24,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => addScreen(),
+                              builder: (context) => adminALscreen(),
                             ));
                           },
                         ),
@@ -138,7 +113,7 @@ class notifScreen extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => notifScreen(),
+                              builder: (context) => adminNLscreen(),
                             ));
                           },
                         ),
@@ -155,14 +130,38 @@ class notifScreen extends StatelessWidget {
                         ),
                         child: IconButton(
                           icon: const Icon(
-                            Icons.person,
+                            Icons.logout,
                             color: Color(0xff000000),
                             size: 24,
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => profileScreen(),
-                            ));
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Logout Confirmation'),
+                                  content:
+                                      Text('Are you sure you want to logout?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Logout'),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => LoginPage(),
+                                        ));
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                         ),
                       ),
@@ -280,7 +279,7 @@ class notifScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => messageScreen(),
+                        builder: (context) => adminNMscreen(),
                       ));
                     },
                   ),
@@ -370,7 +369,7 @@ class notifScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => messageScreen(),
+                        builder: (context) => adminNMscreen(),
                       ));
                     },
                   ),

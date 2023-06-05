@@ -51,7 +51,7 @@ class welcomeScreen extends StatelessWidget {
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+                        builder: (context) => LoginPage(),
                       ));
                     },
                     color: Color(0xffffffff),
