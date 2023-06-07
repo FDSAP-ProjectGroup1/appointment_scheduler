@@ -233,7 +233,7 @@ class profileScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "sample@email",
+                            "sample@eail",
                             textAlign: TextAlign.start,
                             overflow: TextOverflow.clip,
                             style: TextStyle(
